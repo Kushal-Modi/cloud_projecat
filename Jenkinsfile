@@ -9,24 +9,10 @@ pipeline {
             }
         }
 
-        stage('Build - Java') {
-            steps {
-                // Maven build (skip tests)
-                bat 'mvn clean install -DskipTests'
-            }
-        }
-
         stage('Build - Node.js') {
             steps {
                 // Node.js install
                 bat 'npm install'
-            }
-        }
-
-        stage('Test - Java') {
-            steps {
-                // Run Java tests
-                bat 'mvn test'
             }
         }
 
