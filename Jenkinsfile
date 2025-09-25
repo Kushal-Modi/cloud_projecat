@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Get the latest code from GitHub
-                git branch: 'main', url: 'https://github.com/Kushal-Modi/cloud_projact.git'
+                git branch: 'main', url: 'https://github.com/Kushal-Modi/cloud_projecat.git'
             }
         }
 
