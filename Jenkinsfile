@@ -1,22 +1,38 @@
 pipeline {
-    agent any   // Run on any available agent
+    agent any
 
     stages {
+        stage('Checkout') {
+            steps {
+                // Pull code from GitHub
+                git branch: 'main', url: 'https://github.com/Kushal-Modi/cloud_projact.git'
+            }
+        }
+
         stage('Build') {
             steps {
-                echo 'Building the application...'
+                // Example for Java project
+                // sh 'mvn clean install -DskipTests'
+
+                // Example for Node.js project
+                sh 'npm install'
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Running tests...'
+                // Example for Java project
+                //sh 'mvn test'
+
+                // Example for Node.js project
+                 sh 'npm test'
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying application...'
+                // Right now just echo, later we can replace with real deployment
+                echo "Deploying application..."
             }
         }
     }
