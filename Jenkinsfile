@@ -11,52 +11,54 @@ pipeline {
 
         stage('Build - Java') {
             steps {
-                // Example for a Maven project
-                sh 'mvn clean install -DskipTests'
+                // Maven build (skip tests)
+                bat 'mvn clean install -DskipTests'
             }
         }
 
         stage('Build - Node.js') {
             steps {
-                // Example for Node.js project
-                sh 'npm install'
+                // Node.js install
+                bat 'npm install'
             }
         }
 
         stage('Test - Java') {
             steps {
-                sh 'mvn test'
+                // Run Java tests
+                bat 'mvn test'
             }
         }
 
         stage('Test - Node.js') {
             steps {
-                sh 'npm test'
+                // Run Node.js tests
+                bat 'npm test'
             }
         }
 
         stage('Docker Build') {
             steps {
-                // Build a Docker image
-                sh 'docker build -t myapp:latest .'
+                // Build Docker image
+                bat 'docker build -t myapp:latest .'
             }
         }
 
         stage('Docker Push') {
             steps {
-                // Push Docker image to DockerHub (replace with your repo)
+                // Push Docker image to DockerHub
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-                    sh 'docker tag myapp:latest my-dockerhub-user/myapp:latest'
-                    sh 'docker push my-dockerhub-user/myapp:latest'
+                    bat 'echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin'
+                    bat 'docker tag myapp:latest my-dockerhub-user/myapp:latest'
+                    bat 'docker push my-dockerhub-user/myapp:latest'
                 }
             }
         }
 
         stage('Deploy') {
             steps {
-                // Example: deploy using Docker Compose
-                sh 'docker-compose up -d'
+                // Deploy using Docker Compose
+                bat 'docker-compose up -d'
             }
         }
     }
